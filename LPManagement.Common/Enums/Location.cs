@@ -2,10 +2,12 @@
 
 namespace LPManagement.Common.Enums
 {
+    /// <summary>
+    /// Location enum.
+    /// </summary>
     [Flags]
     public enum Location
     {
-        None = 0,
         /// <summary>
         /// Chennai
         /// </summary>
@@ -25,6 +27,6 @@ namespace LPManagement.Common.Enums
         /// <summary>
         /// All locations
         /// </summary>
-        All = CHN | HYD | BEN | PUN
+        All = 16
     }
 }

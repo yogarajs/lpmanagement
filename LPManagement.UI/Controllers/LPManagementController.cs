@@ -5,14 +5,20 @@ using LPManagement.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LPManagement.UI.Controllers
 {
+    /// <summary>
+    /// LaunchPad management controller.
+    /// </summary>
     public class LPManagementController : Controller
     {
-        // GET: LPManagement
+        #region Action methods
+        /// <summary>
+        /// Index action method
+        /// </summary>
+        /// <returns>ActionResult</returns>
         public ActionResult Index()
         {
             var userDetails = Session["userDetails"] as User;
@@ -21,23 +27,23 @@ namespace LPManagement.UI.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            var launchPadDetailsModel = GetLaunchPadDetails(Location.CHN, Quarter.Q1, Status.Completed, DateTime.Today.Year);
+            var launchPadDetailsModel = GetLaunchPadDetails(Location.All, Quarter.All, Status.All, DateTime.Today.Year);
 
             var locations = Enum.GetValues(typeof(Location)).Cast<Location>().ToList();
-            locations.Remove(Location.None);
             var locationModels = locations.Select(x => new SelectListItem
             {
                 Text = x.ToString(),
                 Value = x.ToString(),
-                Selected = (x == Location.CHN)
+                Selected = (x == Location.All)
             });
             ViewBag.Locations = locationModels;
 
-            var status = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();            
+            var status = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             var statusModels = status.Select(x => new SelectListItem
             {
                 Text = x.ToString(),
                 Value = x.ToString(),
+                Selected = (x == Status.All)
             });
             ViewBag.Status = statusModels;
 
@@ -46,12 +52,21 @@ namespace LPManagement.UI.Controllers
             {
                 Text = x.ToString(),
                 Value = x.ToString(),
+                Selected = (x == Quarter.All)
             });
             ViewBag.Quarter = quarterModels;
 
             return View(launchPadDetailsModel);
         }
 
+        /// <summary>
+        /// Filters LaunchPad details based on filter criteria.
+        /// </summary>
+        /// <param name="location">Location</param>
+        /// <param name="quarter">Quarter</param>
+        /// <param name="status">Status</param>
+        /// <param name="financialYear">Financial year</param>
+        /// <returns>ActionResult</returns>
         public ActionResult LPDetails(Location location, Quarter quarter, Status status, int financialYear)
         {
             var userDetails = Session["userDetails"] as User;
@@ -63,7 +78,9 @@ namespace LPManagement.UI.Controllers
             var launchPadDetailsModel = GetLaunchPadDetails(location, quarter, status, financialYear);
             return PartialView(launchPadDetailsModel);
         }
+        #endregion
 
+        #region Private methods
         private List<LaunchPadDetailsModel> GetLaunchPadDetails(Location location, Quarter quarter, Status status, int financialYear)
         {
             var lPManagementBusinessLogic = new LPManagementBusinessLogic();
@@ -81,6 +98,7 @@ namespace LPManagement.UI.Controllers
             }).ToList();
 
             return launchPadDetailsModel;
-        }
+        } 
+        #endregion
     }
 }

@@ -1,14 +1,20 @@
 ﻿using LPManagement.BusinessLogic;
 using LPManagement.Common;
-using LPManagement.Common.Enums;
 using LPManagement.UI.Models;
 using System.Web.Mvc;
 
 namespace LPManagement.UI.Controllers
 {
+    /// <summary>
+    /// Account controller class.
+    /// </summary>
     public class AccountController : Controller
     {
-        // GET: Account
+        #region Action methods
+        /// <summary>
+        /// Index action method
+        /// </summary>
+        /// <returns>ActionResult</returns>
         public ActionResult Index()
         {
             var userDetails = Session["userDetails"] as User;
@@ -19,6 +25,11 @@ namespace LPManagement.UI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Login action methods
+        /// </summary>
+        /// <param name="accountModel">The account model</param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         public ActionResult Login(AccountModel accountModel)
         {
@@ -39,6 +50,7 @@ namespace LPManagement.UI.Controllers
                 Session["userDetails"] = user;
                 return RedirectToAction("Index", "LPManagement");
             }
-        }
+        } 
+        #endregion
     }
 }

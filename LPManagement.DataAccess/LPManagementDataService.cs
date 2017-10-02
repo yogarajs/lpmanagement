@@ -11,8 +11,15 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LPManagement.DataAccess
 {
+    /// <summary>
+    /// LaunchPad management data service.
+    /// </summary>
     public class LPManagementDataService
     {
+        /// <summary>
+        /// Gets list of launch pad details.
+        /// </summary>
+        /// <returns>List of launch pad details.</returns>
         public IEnumerable<LaunchPadDetails> GetLaunchPadDetails()
         {
             var launchPadDetails = new List<LaunchPadDetails>();
@@ -69,7 +76,7 @@ namespace LPManagement.DataAccess
             }
             catch (COMException)
             {
-                throw new FileNotFoundException();
+                throw new FileNotFoundException("Data file not");
             }
             catch (Exception ex)
             {

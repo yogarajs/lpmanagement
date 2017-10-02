@@ -10,8 +10,15 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LPManagement.DataAccess
 {
+    /// <summary>
+    /// Account data service class.
+    /// </summary>
     public class AccountDataService
     {
+        /// <summary>
+        /// Gets list of users.
+        /// </summary>
+        /// <returns>List of users.</returns>
         public List<User> GetUserDetails()
         {
             var users = new List<User>();
@@ -57,7 +64,7 @@ namespace LPManagement.DataAccess
             }
             catch (COMException)
             {
-                throw new FileNotFoundException();
+                throw new FileNotFoundException("Data file not");
             }
             catch (Exception ex)
             {
