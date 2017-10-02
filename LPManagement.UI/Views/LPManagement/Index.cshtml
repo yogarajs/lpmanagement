@@ -1,0 +1,55 @@
+﻿@model List<LPManagement.UI.Models.LaunchPadDetailsModel>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2></h2>
+
+<section>
+    <div class="container-fluid">
+        <div class="col-md-3" id="left">
+            <div class="row">
+                @Html.Label("Location")
+                @Html.DropDownList("locations", ViewBag.Locations as SelectList, new { id = "location", onchange = "getLPDetails()" })
+            </div>
+
+            <div class="row">
+                @Html.Label("Quarter")
+                @Html.DropDownList("quarter", ViewBag.Quarter as SelectList, new { id = "quarter", onchange = "getLPDetails()" })
+            </div>
+
+            <div class="row">
+                @Html.Label("Status")
+                @Html.DropDownList("status", ViewBag.Status as SelectList, new { id = "status", onchange = "getLPDetails()" })
+            </div>
+        </div>
+        <div class="col-md-9">
+            @Html.Partial("LPDetails", Model)
+        </div>
+    </div>
+</section>
+
+<br />
+
+<script type="text/javascript">
+
+    function getLPDetails() {
+        var location = $("#location").val();
+        var quarter = $("#quarter").val();
+        var status = $("#status").val();
+        $.ajax
+        ({
+            url: '/LPManagement/LPDetails',
+            type: 'GET',
+            data: { "location": location, "quarter": quarter, "status": status, "financialYear": 2017 },
+            success: function (result) {
+                $('.table').html("");
+                $('.table').html(result);
+            },
+            error: function () {
+                alert("Server error! Please try after sometime...");
+            },
+        });
+    }
+</script>  

@@ -1,0 +1,9 @@
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.BusinessLogic.dll
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.BusinessLogic.pdb
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.Common.dll
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.DataAccess.dll
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.Common.pdb
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\bin\Debug\LPManagement.DataAccess.pdb
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\obj\Debug\LPManagement.BusinessLogic.csprojResolveAssemblyReference.cache
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\obj\Debug\LPManagement.BusinessLogic.dll
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.BusinessLogic\obj\Debug\LPManagement.BusinessLogic.pdb
