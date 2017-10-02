@@ -8,7 +8,7 @@
 
 <section>
     <div class="container-fluid">
-        <div class="col-md-3" id="left">
+        <div class="col-md-3 pull-left">
             <div class="row">
                 @Html.Label("Location")
                 @Html.DropDownList("locations", ViewBag.Locations as SelectList, new { id = "location", onchange = "getLPDetails()" })
@@ -26,6 +26,9 @@
         </div>
         <div class="col-md-9">
             @Html.Partial("LPDetails", Model)
+            <div id="divInPogress" style="display:none;">
+                <img src="~/Images/spinner.gif" alt="loading..." style="height:100px; width:100px;" />
+            </div>
         </div>
     </div>
 </section>
@@ -35,6 +38,7 @@
 <script type="text/javascript">
 
     function getLPDetails() {
+        $("#divInPogress").show();
         var location = $("#location").val();
         var quarter = $("#quarter").val();
         var status = $("#status").val();
@@ -46,6 +50,9 @@
             success: function (result) {
                 $('.table').html("");
                 $('.table').html(result);
+            },
+            complete: function () {
+                $("#divInPogress").hide();
             },
             error: function () {
                 alert("Server error! Please try after sometime...");

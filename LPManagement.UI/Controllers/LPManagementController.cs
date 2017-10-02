@@ -42,7 +42,7 @@ namespace LPManagement.UI.Controllers
             ViewBag.Status = statusModels;
 
             var quarter = Enum.GetValues(typeof(Quarter)).Cast<Quarter>().ToList();
-            var quarterModels = status.Select(x => new SelectListItem
+            var quarterModels = quarter.Select(x => new SelectListItem
             {
                 Text = x.ToString(),
                 Value = x.ToString(),
