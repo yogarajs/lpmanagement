@@ -62,7 +62,7 @@ namespace LPManagement.DataAccess
                     }
                 }
             }
-            catch (COMException)
+            catch (COMException ex)
             {
                 throw new FileNotFoundException("Data file not");
             }

@@ -37,29 +37,32 @@ namespace LPManagement.DataAccess
                 application = new Excel.Application();
                 workBook = application.Workbooks.Open(fileName, 0, true, 5, "", "", true, Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 var sheets = workBook.Worksheets;
-                workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(2);
+                workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(4);
                 range = workSheet.UsedRange;
+
+                dynamic cellData = (range.Cells[3, 2] as Excel.Range).Value2;
+                var cellDataArray = cellData.ToString().Split('_');
+                Location location = Enum.Parse(typeof(Location), cellDataArray[1].ToString());
+                int financialYear = int.Parse(cellDataArray[0].Substring(2));
 
                 for (int rows = 2; rows <= range.Rows.Count; rows++)
                 {
                     try
                     {
-                        dynamic launchPadCode = (range.Cells[rows, 1] as Excel.Range).Value2;
-                        dynamic location = (range.Cells[rows, 3] as Excel.Range).Value2;
+                        
                         dynamic status = (range.Cells[rows, 4] as Excel.Range).Value2;
                         dynamic quarter = (range.Cells[rows, 5] as Excel.Range).Value2;
-                        dynamic financialYear = (range.Cells[rows, 6] as Excel.Range).Value2;
                         dynamic technology = (range.Cells[rows, 7] as Excel.Range).Value2;
                         dynamic noOfTrainees = (range.Cells[rows, 8] as Excel.Range).Value2;
                         dynamic noOfAllocation = (range.Cells[rows, 9] as Excel.Range).Value2;
 
                         launchPadDetails.Add(new LaunchPadDetails()
                         {
-                            LaunchPadCode = launchPadCode.ToString(),
-                            Location = Enum.Parse(typeof(Location), location.ToString()),
+                            LaunchPadCode = cellData.ToString(),
+                            Location = location,
                             Status = Enum.Parse(typeof(Status), status.ToString()),
                             Quarter = Enum.Parse(typeof(Quarter), quarter.ToString()),
-                            FinancialYear = int.Parse(financialYear.ToString()),
+                            FinancialYear = financialYear,
                             Technology = technology.ToString(),
                             NoOfTrainees = int.Parse(noOfTrainees.ToString()),
                             NoOfAllocation = int.Parse(noOfAllocation.ToString()),
@@ -104,6 +107,11 @@ namespace LPManagement.DataAccess
                 }
             }
             return launchPadDetails;
+        }
+
+        private void ParseLPCodeLocationAndFinancialYear()
+        {
+            throw new NotImplementedException();
         }
     }
 }
