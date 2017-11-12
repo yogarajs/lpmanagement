@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs
+/LPManagement.Database/obj/Debug
+/LPManagement.Database/bin/Debug

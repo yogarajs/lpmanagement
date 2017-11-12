@@ -71,5 +71,10 @@ namespace LPManagement.Common
         /// Gets or sets utilization
         /// </summary>
         public string Utilization { get; set; }
+
+        /// <summary>
+        /// Gets or sets EmployeeScoreDetail
+        /// </summary>
+        public EmployeeScoreDetail EmployeeScoreDetail { get; set; }
     }
 }

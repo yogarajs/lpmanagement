@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LPManagement.Common
+﻿namespace LPManagement.Common
 {
-    class EmployeeScoreDetail
+    public class EmployeeScoreDetail
     {
         public int EmployeeId { get; set; }
 
@@ -28,6 +22,39 @@ namespace LPManagement.Common
 
         public float Hibernate { get; set; }
 
-        public float MyProperty { get; set; }
+        public float Spring { get; set; }
+
+        public float HTML { get; set; }
+
+        public float JavaScript { get; set; }
+
+        public float Informatica { get; set; }
+
+        public float TalentDevelopment { get; set; }
+
+        public float ManualTesting { get; set; }
+
+        public float UFT { get; set; }
+
+        public float Selenium { get; set; }
+
+        public float OOPS { get; set; }
+
+        public float RDBMS { get; set; }
+
+        public float FinalExam { get; set; }
+
+        public float OverallScore { get; set; }
+
+        public float ProjectScore { get; set; }
+
+        public string ProjectReviewer { get; set; }
+
+        public string OverallFeedback { get; set; }
+
+        public string FacultyFeedback { get; set; }
+
+        public string Remarks { get; set; }
     }
 }
+    
