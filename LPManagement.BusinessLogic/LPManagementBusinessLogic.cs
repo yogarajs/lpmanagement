@@ -49,10 +49,17 @@ namespace LPManagement.BusinessLogic
             var launchPadDetails = new List<LaunchPadDetail>();
             ExtractDataFromExcel(filePath, launchPadDetails);
 
-            if (launchPadDetails.Any())
+            try
             {
-                var lpManagementDataService = new LPManagementDataService();
-                lpManagementDataService.PersistLaunchPadDetails(launchPadDetails);
+                if (launchPadDetails.Any())
+                {
+                    var lpManagementDataService = new LPManagementDataService();
+                    lpManagementDataService.PersistLaunchPadDetails(launchPadDetails);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

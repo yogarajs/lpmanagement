@@ -54,12 +54,14 @@ namespace LPManagement.DataAccess
             dataTable.Columns.Add("lp_category", typeof(string));
             dataTable.Columns.Add("training_location", typeof(string));
             dataTable.Columns.Add("work_location", typeof(string));
+            dataTable.Columns.Add("status", typeof(string));
+            dataTable.Columns.Add("utilization", typeof(string));
 
             foreach (var launchPadDetail in launchPadDetails)
             {
                 dataTable.Rows.Add(launchPadDetail.LaunchPadCode, launchPadDetail.Location, launchPadDetail.FinancialYear,
                     launchPadDetail.EmployeeId, launchPadDetail.EmployeeName, launchPadDetail.EmployeeMailId, launchPadDetail.BusinessLayer,
-                    launchPadDetail.Practice, launchPadDetail.LpCategory, launchPadDetail.TrainingLocation, launchPadDetail.WorkLocation);
+                    launchPadDetail.Practice, launchPadDetail.LpCategory, launchPadDetail.TrainingLocation, launchPadDetail.WorkLocation, launchPadDetail.Status, launchPadDetail.Utilization);
             }
 
             return dataTable;
