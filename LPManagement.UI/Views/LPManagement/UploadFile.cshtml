@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Upload file";
+}
+
+<h2>Upload excel</h2>
+
+@using (Html.BeginForm("UploadFile", "LPManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div>
+        @Html.TextBox("file", "", new { type = "file", accept = ".xls, .xlsx" }) <br />
+
+        <input type="submit" value="Upload" />
+
+        @ViewBag.Message
+
+    </div>
+}
+ 

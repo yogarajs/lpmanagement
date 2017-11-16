@@ -40,10 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeScoreDetail.cs" />
     <Compile Include="Enums\Location.cs" />
     <Compile Include="Enums\Quarter.cs" />
     <Compile Include="Enums\Status.cs" />
-    <Compile Include="LaunchPadDetails.cs" />
+    <Compile Include="LaunchPadDetail.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
