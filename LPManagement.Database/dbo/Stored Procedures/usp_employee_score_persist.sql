@@ -33,7 +33,7 @@ AS
 			,[project_reviewer]
 			,[overall_feedback]
 			,[faculty_feedback]
-			[remarks]
+			,[remarks]
 		FROM @employee_score_data
 	) sourceTable  
 	ON 

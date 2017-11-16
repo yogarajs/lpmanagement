@@ -22,11 +22,11 @@ namespace LPManagement.UI.Controllers
         /// <returns>ActionResult</returns>
         public ActionResult Index()
         {
-            var userDetails = Session["userDetails"] as User;
-            if (userDetails == null)
-            {
-                return RedirectToAction("Index", "Account");
-            }
+            //var userDetails = Session["userDetails"] as User;
+            //if (userDetails == null)
+            //{
+            //    return RedirectToAction("Index", "Account");
+            //}
 
             var launchPadDetailsModel = new List<LPManagement.UI.Models.LaunchPadDetailsModel>();
             //var launchPadDetailsModel = GetLaunchPadDetails(Location.All, Quarter.All, Status.All, DateTime.Today.Year);
@@ -71,11 +71,11 @@ namespace LPManagement.UI.Controllers
         /// <returns>ActionResult</returns>
         public ActionResult LPDetails(Location location, Quarter quarter, Status status, int financialYear)
         {
-            var userDetails = Session["userDetails"] as User;
-            if (userDetails == null)
-            {
-                return RedirectToAction("Index", "Account");
-            }
+            //var userDetails = Session["userDetails"] as User;
+            //if (userDetails == null)
+            //{
+            //    return RedirectToAction("Index", "Account");
+            //}
 
             var launchPadDetailsModel = GetLaunchPadDetails(location, quarter, status, financialYear);
             return PartialView(launchPadDetailsModel);

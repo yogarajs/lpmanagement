@@ -5,3 +5,11 @@
 /.vs
 /LPManagement.Database/obj/Debug
 /LPManagement.Database/bin/Debug
+/LPManagement.BusinessLogic/obj/Debug
+/LPManagement.BusinessLogic/bin/Debug
+/LPManagement.Common/obj/Debug
+/LPManagement.Common/bin/Debug
+/LPManagement.DataAccess/obj/Debug
+/LPManagement.DataAccess/bin/Debug
+/LPManagement.UI/obj
+/LPManagement.UI/bin
