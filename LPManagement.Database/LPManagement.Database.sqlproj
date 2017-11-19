@@ -65,11 +65,11 @@
     <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\lp_management.sql" />
-    <Build Include="dbo\Tables\employee_score.sql" />
-    <Build Include="dbo\Stored Procedures\usp_employee_persist.sql" />
-    <Build Include="dbo\User Defined Types\lp_management_type.sql" />
-    <Build Include="dbo\User Defined Types\employee_score_type.sql" />
-    <Build Include="dbo\Stored Procedures\usp_employee_score_persist.sql" />
+    <Build Include="dbo\Tables\lp_detail.sql" />
+    <Build Include="dbo\Tables\lp_score.sql" />
+    <Build Include="dbo\Stored Procedures\usp_lp_detail_persist.sql" />
+    <Build Include="dbo\User Defined Types\lp_detail_type.sql" />
+    <Build Include="dbo\User Defined Types\lp_score_type.sql" />
+    <Build Include="dbo\Stored Procedures\usp_lp_score_persist.sql" />
   </ItemGroup>
 </Project>
