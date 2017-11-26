@@ -9,20 +9,22 @@
             </div>
 
             <div class="row">
-                @Html.Label("Quarter")
-                @Html.DropDownList("quarter", ViewBag.Quarter as SelectList, new { id = "quarter", onchange = "getLPDetails()" })
+                @Html.Label("Status")
+                @Html.DropDownList("status", ViewBag.Status as SelectList, new { id = "status", onchange = "getLPDetails()" })
             </div>
 
             <div class="row">
-                @Html.Label("Status")
-                @Html.DropDownList("status", ViewBag.Status as SelectList, new { id = "status", onchange = "getLPDetails()" })
+                @Html.Label("Finanicial year")
+                @Html.DropDownList("financialYear", ViewBag.FinancialYear as SelectList, new { id = "financialYear", onchange = "getLPDetails()" })
+            </div>
+
+            <div class="row">
+                @Html.Label("Practice")
+                @Html.DropDownList("practice", ViewBag.Practice as SelectList, new { id = "practice", onchange = "getLPDetails()" })
             </div>
         </div>
         <div class="col-md-9">
             @Html.Partial("DashboardContent", Model)
-            <div id="divInPogress" style="display:none;">
-                <img src="~/Images/spinner.gif" alt="loading..." style="height:100px; width:100px;" />
-            </div>
         </div>
     </div>
 </section>
@@ -30,21 +32,18 @@
 <script type="text/javascript">
 
     function getLPDetails() {
-        $("#divInPogress").show();
         var location = $("#location").val();
-        var quarter = $("#quarter").val();
         var status = $("#status").val();
+        var financialYear = $("#financialYear").val();
+        var practice = $("#practice").val();
         $.ajax
         ({
             url: '/LPManagement/DashboardContent',
             type: 'GET',
-            data: { "location": location, "quarter": quarter, "status": status, "financialYear": 2017 },
+            data: { "location": location, "status": status, "financialYear": financialYear, "practice": practice },
             success: function (result) {
                 $('.table').html("");
                 $('.table').html(result);
-            },
-            complete: function () {
-                $("#divInPogress").hide();
             },
             error: function () {
                 alert("Server error! Please try after sometime...");

@@ -124,6 +124,7 @@
     <Content Include="Views\LPManagement\Dashboard.cshtml" />
     <Content Include="Views\LPManagement\UploadFile.cshtml" />
     <Content Include="Views\LPManagement\DashboardContent.cshtml" />
+    <Content Include="Views\LPManagement\DashboardSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,6 +165,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LaunchPadDetailsModel.cs" />
+    <Compile Include="Models\LaunchPadSummaryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

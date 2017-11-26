@@ -42,15 +42,5 @@ namespace LPManagement.UI.Models
         /// Gets or sets technology.
         /// </summary>
         public string Technology { get; set; }
-
-        /// <summary>
-        /// Gets or sets no. of trainess.
-        /// </summary>
-        public int NoOfTrainees { get; set; }
-
-        /// <summary>
-        /// Gets or sets no. of allocated trainees.
-        /// </summary>
-        public int NoOfAllocation { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace LPManagement.BusinessLogic
     /// </summary>
     public class LPManagementBusinessLogic
     {
+        #region Public methods
         /// <summary>
         /// Get launch pad details for the given filter criteria.
         /// </summary>
@@ -23,17 +24,24 @@ namespace LPManagement.BusinessLogic
         /// <param name="quarter">Quarter</param>
         /// <param name="status">Status</param>
         /// <param name="financialYear">Financial year</param>
+        /// <param name="practice">Practice</param>
         /// <returns>List of LaunchPadDetails.</returns>
-        public IEnumerable<LaunchPadDetail> GetLauchPadDetails(Location location, Quarter quarter, Status status, int financialYear)
+        public IEnumerable<LaunchPadDetail> GetLauchPadDetails(Location location, Quarter quarter, Status status, int financialYear, string practice)
         {
+            var lastFourYears = financialYear - 4;
             var lpManagementDataService = new LPManagementDataService();
             var launchPadDetails = lpManagementDataService.GetLaunchPadDetails()
                                     .ToList()
-                                    .Where(x => x.FinancialYear == financialYear);
+                                    .Where(x => x.FinancialYear >= lastFourYears && x.FinancialYear <= financialYear);
 
             if (location != Location.All)
             {
                 launchPadDetails = launchPadDetails.Where(x => x.Location == location).ToList();
+            }
+
+            if (practice != "All")
+            {
+                launchPadDetails = launchPadDetails.Where(x => x.Practice == practice).ToList();
             }
 
             return launchPadDetails;
@@ -42,6 +50,7 @@ namespace LPManagement.BusinessLogic
         /// <summary>
         /// Gets launch pad details by launch pad code.
         /// </summary>
+        /// <param name="launchPadCode">Launch pad code.</param>
         /// <returns>List of launch pad details.</returns>
         public LaunchPadSummary GetLaunchPadDetailsByLaunchPadCode(string launchPadCode)
         {
@@ -86,8 +95,10 @@ namespace LPManagement.BusinessLogic
             {
                 throw ex;
             }
-        }
+        } 
+        #endregion
 
+        #region Private methods
         private void ExtractDataFromExcel(string filePath, List<LaunchPadDetail> launchPadDetails)
         {
             Excel.Application application = null;
@@ -105,7 +116,7 @@ namespace LPManagement.BusinessLogic
                 dynamic cellData = (range.Cells[3, 2] as Excel.Range).Value2;
                 var cellDataArray = cellData.ToString().Split('_');
                 Location location = Enum.Parse(typeof(Location), cellDataArray[1].ToString());
-                int financialYear = int.Parse(cellDataArray[0].Substring(2));
+                int financialYear = int.Parse(cellDataArray[0].Substring(2)) + 2000;
 
                 for (int rows = 3; rows <= range.Rows.Count; rows++)
                 {
@@ -239,6 +250,7 @@ namespace LPManagement.BusinessLogic
                     Marshal.ReleaseComObject(application);
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

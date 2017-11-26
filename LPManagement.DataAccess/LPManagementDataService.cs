@@ -13,6 +13,11 @@ namespace LPManagement.DataAccess
     /// </summary>
     public class LPManagementDataService
     {
+        #region Public methods
+        /// <summary>
+        /// Gets launch pad details
+        /// </summary>
+        /// <returns>List of launch pad details</returns>
         public IEnumerable<LaunchPadDetail> GetLaunchPadDetails()
         {
             int recordCount = 0;
@@ -87,38 +92,14 @@ namespace LPManagement.DataAccess
 
                 if (dataReader.HasRows)
                 {
-                    var locationOrdinal = dataReader.GetOrdinal("location");
-                    var financialYearOrdinal = dataReader.GetOrdinal("financial_year");
-                    var employeeIdOrdinal = dataReader.GetOrdinal("employee_id");
-                    var employeeNameOrdinal = dataReader.GetOrdinal("employee_name");
-                    var employeeEMailOrdinal = dataReader.GetOrdinal("employee_e_mail");
-                    var businessLayerOrdinal = dataReader.GetOrdinal("business_layer");
-                    var practiceOrdinal = dataReader.GetOrdinal("practice");
-                    var lpCategoryOrdinal = dataReader.GetOrdinal("lp_category");
-                    var trainingLocationOrdinal = dataReader.GetOrdinal("training_location");
-                    var workLocationOrdinal = dataReader.GetOrdinal("work_location");
                     var statusOrdinal = dataReader.GetOrdinal("status");
-                    var utilizationOrdinal = dataReader.GetOrdinal("utilization");
                     var overallScoreOrdinal = dataReader.GetOrdinal("overall_score");
 
                     while (dataReader.Read())
                     {
-                        Location enumValue;
-                        Enum.TryParse(dataReader.GetString(locationOrdinal), out enumValue);
                         var launchPadDetail = new LaunchPadDetail()
                         {
-                            Location = enumValue,
-                            FinancialYear = dataReader.GetInt32(financialYearOrdinal),
-                            EmployeeId = dataReader.GetInt32(employeeIdOrdinal),
-                            EmployeeName = dataReader.GetString(employeeNameOrdinal),
-                            EmployeeMailId = dataReader.GetString(employeeEMailOrdinal),
-                            BusinessLayer = dataReader.GetString(businessLayerOrdinal),
-                            Practice = dataReader.GetString(practiceOrdinal),
-                            LpCategory = dataReader.GetString(lpCategoryOrdinal),
-                            TrainingLocation = dataReader.GetString(trainingLocationOrdinal),
-                            WorkLocation = dataReader.GetString(workLocationOrdinal),
                             Status = dataReader.GetString(statusOrdinal),
-                            Utilization = dataReader.GetString(utilizationOrdinal),
                             EmployeeScoreDetail = new EmployeeScoreDetail()
                             {
                                 OverallScore = dataReader.GetFloat(overallScoreOrdinal)
@@ -133,6 +114,10 @@ namespace LPManagement.DataAccess
             return launchPadDetails;
         }
 
+        /// <summary>
+        /// Persists launch pad details
+        /// </summary>
+        /// <param name="launchPadDetails">List of launch pad details.</param>
         public void PersistLaunchPadDetails(List<LaunchPadDetail> launchPadDetails)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["lpMGMTConnectionString"].ToString();
@@ -157,8 +142,10 @@ namespace LPManagement.DataAccess
                 command.ExecuteNonQuery();
                 connection.Close();
             }
-        }
+        } 
+        #endregion
 
+        #region Private methods
         private DataTable CreateLPScoreDetailDataTable(List<LaunchPadDetail> launchPadDetails)
         {
             DataTable dataTable = new DataTable();
@@ -228,6 +215,7 @@ namespace LPManagement.DataAccess
             }
 
             return dataTable;
-        }
+        } 
+        #endregion
     }
 }

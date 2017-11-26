@@ -8,8 +8,7 @@ AS
 	USING
 	(
 		SELECT
-			[employee_score_id]
-			,[employee_id]
+			[employee_id]
 			,[faculty]
 			,[unix]
 			,[software_engineering_and_uml]

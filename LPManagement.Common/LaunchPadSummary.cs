@@ -1,12 +1,8 @@
-﻿using LPManagement.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LPManagement.Common
+﻿namespace LPManagement.Common
 {
+    /// <summary>
+    /// The launch pad summary class
+    /// </summary>
     public class LaunchPadSummary
     {
         /// <summary>

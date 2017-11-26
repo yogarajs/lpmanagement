@@ -1,21 +1,38 @@
-﻿@model List<LPManagement.UI.Models.LaunchPadDetailsModel>
-
-@{
+﻿@{
     WebGrid grid = new WebGrid(null);
     grid.Bind(Model, autoSortAndPage: true);
 }
+
 
 @grid.GetHtml(tableStyle: "table table-bordered",
              mode: WebGridPagerModes.All,
                 columns: grid.Columns(
                 grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.LaunchPadCode), "Launch Pad Code"),
                 grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.Location), "Location"),
-                grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.Technology), "Technology"),
-                grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.Status), "Status"),
-                grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.Quarter), "Quarter"),
                 grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.FinancialYear), "Financial Year"),
-                grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.NoOfTrainees), "Total no. of trainees"),
-                grid.Column(nameof(LPManagement.UI.Models.LaunchPadDetailsModel.NoOfAllocation), "No. of allocated trainees")
+                grid.Column("Summary", header: null, format: @<text>@item.GetSelectLink("Summary")</text>)
             ))
 
+@if (grid.HasSelection)
+{
+    @Html.Partial("DashboardSummary");
+}
+
+<script type="text/javascript">
+
+    function getLPSummaryDetails() {
+        $.ajax
+        ({
+            url: '/LPManagement/DashboardSummary',
+            type: 'GET',
+            data: { "launchPadCode": launchPadCode },
+            success: function (result) {
+                alert(result);
+            },
+            error: function () {
+                alert("Server error! Please try after sometime...");
+            },
+        });
+    }
+</script>
 
