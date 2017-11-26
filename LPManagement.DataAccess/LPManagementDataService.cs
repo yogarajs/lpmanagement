@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using LPManagement.Common;
+using LPManagement.Common.Enums;
 
 namespace LPManagement.DataAccess
 {
@@ -12,14 +13,124 @@ namespace LPManagement.DataAccess
     /// </summary>
     public class LPManagementDataService
     {
-        /// <summary>
-        /// Gets list of launch pad details.
-        /// </summary>
-        /// <returns>List of launch pad details.</returns>
         public IEnumerable<LaunchPadDetail> GetLaunchPadDetails()
         {
+            int recordCount = 0;
+            var launchPadDetails = new List<LaunchPadDetail>();
+            var connectionString = ConfigurationManager.ConnectionStrings["lpMGMTConnectionString"].ToString();
 
-            return null;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("[dbo].[usp_lp_detail_get_all]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                var recordCountParam = command.Parameters.Add("@record_count", SqlDbType.Int);
+                recordCountParam.Direction = ParameterDirection.Output;
+                var dataReader = command.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    var lpCodeOrdinal = dataReader.GetOrdinal("launch_pad_code");
+                    var locationOrdinal = dataReader.GetOrdinal("location");
+                    var financialYearOrdinal = dataReader.GetOrdinal("financial_year");
+                    var businessLayerOrdinal = dataReader.GetOrdinal("business_layer");
+                    var practiceOrdinal = dataReader.GetOrdinal("practice");
+                    var lpCategoryOrdinal = dataReader.GetOrdinal("lp_category");
+                    var statusOrdinal = dataReader.GetOrdinal("status");
+
+                    while (dataReader.Read())
+                    {
+                        Location enumValue;
+                        Enum.TryParse(dataReader.GetString(locationOrdinal), out enumValue);
+                        var launchPadDetail = new LaunchPadDetail()
+                        {
+                            LaunchPadCode = dataReader.GetString(lpCodeOrdinal),
+                            Location = enumValue,
+                            FinancialYear = dataReader.GetInt32(financialYearOrdinal),
+                            BusinessLayer = dataReader.GetString(businessLayerOrdinal),
+                            Practice = dataReader.GetString(practiceOrdinal),
+                            LpCategory = dataReader.GetString(lpCategoryOrdinal),
+                            Status = dataReader.GetString(statusOrdinal),
+                        };
+                        launchPadDetails.Add(launchPadDetail);
+                    }
+                }
+                dataReader.Close();
+                recordCount = Int32.Parse(command.Parameters["@record_count"].Value.ToString());
+            }
+            return launchPadDetails;
+        }
+
+        /// <summary>
+        /// Gets launch pad details by launch pad code.
+        /// </summary>
+        /// <returns>List of launch pad details.</returns>
+        public IEnumerable<LaunchPadDetail> GetLaunchPadDetailsByLaunchPadCode(string launchPadCode)
+        {
+            int recordCount = 0;
+            var launchPadDetails = new List<LaunchPadDetail>();
+            var connectionString = ConfigurationManager.ConnectionStrings["lpMGMTConnectionString"].ToString();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("[dbo].[usp_lp_detail_get_all_by_launch_pad_code]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                var sqlParameter = command.Parameters.AddWithValue("@launch_pad_code", launchPadCode);
+                sqlParameter.SqlDbType = SqlDbType.NVarChar;
+
+                var recordCountParam = command.Parameters.Add("@record_count", SqlDbType.Int);
+                recordCountParam.Direction = ParameterDirection.Output;
+                var dataReader = command.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    var locationOrdinal = dataReader.GetOrdinal("location");
+                    var financialYearOrdinal = dataReader.GetOrdinal("financial_year");
+                    var employeeIdOrdinal = dataReader.GetOrdinal("employee_id");
+                    var employeeNameOrdinal = dataReader.GetOrdinal("employee_name");
+                    var employeeEMailOrdinal = dataReader.GetOrdinal("employee_e_mail");
+                    var businessLayerOrdinal = dataReader.GetOrdinal("business_layer");
+                    var practiceOrdinal = dataReader.GetOrdinal("practice");
+                    var lpCategoryOrdinal = dataReader.GetOrdinal("lp_category");
+                    var trainingLocationOrdinal = dataReader.GetOrdinal("training_location");
+                    var workLocationOrdinal = dataReader.GetOrdinal("work_location");
+                    var statusOrdinal = dataReader.GetOrdinal("status");
+                    var utilizationOrdinal = dataReader.GetOrdinal("utilization");
+                    var overallScoreOrdinal = dataReader.GetOrdinal("overall_score");
+
+                    while (dataReader.Read())
+                    {
+                        Location enumValue;
+                        Enum.TryParse(dataReader.GetString(locationOrdinal), out enumValue);
+                        var launchPadDetail = new LaunchPadDetail()
+                        {
+                            Location = enumValue,
+                            FinancialYear = dataReader.GetInt32(financialYearOrdinal),
+                            EmployeeId = dataReader.GetInt32(employeeIdOrdinal),
+                            EmployeeName = dataReader.GetString(employeeNameOrdinal),
+                            EmployeeMailId = dataReader.GetString(employeeEMailOrdinal),
+                            BusinessLayer = dataReader.GetString(businessLayerOrdinal),
+                            Practice = dataReader.GetString(practiceOrdinal),
+                            LpCategory = dataReader.GetString(lpCategoryOrdinal),
+                            TrainingLocation = dataReader.GetString(trainingLocationOrdinal),
+                            WorkLocation = dataReader.GetString(workLocationOrdinal),
+                            Status = dataReader.GetString(statusOrdinal),
+                            Utilization = dataReader.GetString(utilizationOrdinal),
+                            EmployeeScoreDetail = new EmployeeScoreDetail()
+                            {
+                                OverallScore = dataReader.GetFloat(overallScoreOrdinal)
+                            }
+                        };
+                        launchPadDetails.Add(launchPadDetail);
+                    }
+                }
+                dataReader.Close();
+                recordCount = Int32.Parse(command.Parameters["@record_count"].Value.ToString());
+            }
+            return launchPadDetails;
         }
 
         public void PersistLaunchPadDetails(List<LaunchPadDetail> launchPadDetails)
@@ -105,7 +216,7 @@ namespace LPManagement.DataAccess
             dataTable.Columns.Add("practice", typeof(string));
             dataTable.Columns.Add("lp_category", typeof(string));
             dataTable.Columns.Add("training_location", typeof(string));
-            dataTable.Columns.Add("work_location", typeof(string)); 
+            dataTable.Columns.Add("work_location", typeof(string));
             dataTable.Columns.Add("status", typeof(string));
             dataTable.Columns.Add("utilization", typeof(string));
 

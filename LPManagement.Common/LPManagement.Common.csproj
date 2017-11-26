@@ -45,6 +45,7 @@
     <Compile Include="Enums\Quarter.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="LaunchPadDetail.cs" />
+    <Compile Include="LaunchPadSummary.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

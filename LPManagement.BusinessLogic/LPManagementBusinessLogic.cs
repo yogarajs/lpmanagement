@@ -40,6 +40,31 @@ namespace LPManagement.BusinessLogic
         }
 
         /// <summary>
+        /// Gets launch pad details by launch pad code.
+        /// </summary>
+        /// <returns>List of launch pad details.</returns>
+        public LaunchPadSummary GetLaunchPadDetailsByLaunchPadCode(string launchPadCode)
+        {
+            var lpManagementDataService = new LPManagementDataService();
+            var launchPadDetails = lpManagementDataService.GetLaunchPadDetailsByLaunchPadCode(launchPadCode).ToList();
+            var totalNoOfLPCount = launchPadDetails.Count;
+            var overallScoreAbove70PercentCount = launchPadDetails.Where(x => x.EmployeeScoreDetail.OverallScore >= 70).ToList().Count;
+            var overallScore60To70PercentCount = launchPadDetails.Where(x => x.EmployeeScoreDetail.OverallScore >= 69 && x.EmployeeScoreDetail.OverallScore <= 60).ToList().Count;
+            var overallScoreBelow60PercentCount = launchPadDetails.Where(x => x.EmployeeScoreDetail.OverallScore < 60).ToList().Count;
+
+            var launchPadSummary = new LaunchPadSummary()
+            {
+                LaunchPadCode = launchPadCode,
+                Status = launchPadDetails[0].Status,
+                TotalNoOfLPCount = totalNoOfLPCount,
+                OverallScoreAbove70PercentCount = overallScore60To70PercentCount,
+                OverallScore60To70PercentCount = overallScore60To70PercentCount,
+                OverallScoreBelow60PercentCount = overallScoreBelow60PercentCount
+            };
+            return launchPadSummary;
+        }
+
+        /// <summary>
         /// Process Upload files - Read data from excel and converts to business objects.
         /// Persists data to the database.
         /// </summary>

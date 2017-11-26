@@ -1,5 +1,5 @@
 E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\bin\Debug\LPManagement.Common.dll
 E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\bin\Debug\LPManagement.Common.pdb
-E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\obj\Debug\LPManagement.Common.csprojResolveAssemblyReference.cache
 E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\obj\Debug\LPManagement.Common.dll
 E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\obj\Debug\LPManagement.Common.pdb
+E:\Yogaraj\Development\Apps\LPManagement\LPManagement.Common\obj\Debug\LPManagement.Common.csprojResolveAssemblyReference.cache

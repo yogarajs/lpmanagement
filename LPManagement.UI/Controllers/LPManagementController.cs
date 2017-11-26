@@ -28,6 +28,32 @@ namespace LPManagement.UI.Controllers
             //    return RedirectToAction("Index", "Account");
             //}
 
+            return View();
+        }
+
+        /// <summary>
+        /// Filters LaunchPad details based on filter criteria.
+        /// </summary>
+        /// <param name="location">Location</param>
+        /// <param name="quarter">Quarter</param>
+        /// <param name="status">Status</param>
+        /// <param name="financialYear">Financial year</param>
+        /// <returns>ActionResult</returns>
+        public ActionResult LPDetails(Location location, Quarter quarter, Status status, int financialYear)
+        {
+            //var userDetails = Session["userDetails"] as User;
+            //if (userDetails == null)
+            //{
+            //    return RedirectToAction("Index", "Account");
+            //}
+
+            var launchPadDetailsModel = GetLaunchPadDetails(location, quarter, status, financialYear);
+            return PartialView(launchPadDetailsModel);
+        }
+
+        [HttpGet]
+        public ActionResult Dashboard()
+        {
             var launchPadDetailsModel = new List<LPManagement.UI.Models.LaunchPadDetailsModel>();
             //var launchPadDetailsModel = GetLaunchPadDetails(Location.All, Quarter.All, Status.All, DateTime.Today.Year);
 
@@ -61,25 +87,6 @@ namespace LPManagement.UI.Controllers
             return View(launchPadDetailsModel);
         }
 
-        /// <summary>
-        /// Filters LaunchPad details based on filter criteria.
-        /// </summary>
-        /// <param name="location">Location</param>
-        /// <param name="quarter">Quarter</param>
-        /// <param name="status">Status</param>
-        /// <param name="financialYear">Financial year</param>
-        /// <returns>ActionResult</returns>
-        public ActionResult LPDetails(Location location, Quarter quarter, Status status, int financialYear)
-        {
-            //var userDetails = Session["userDetails"] as User;
-            //if (userDetails == null)
-            //{
-            //    return RedirectToAction("Index", "Account");
-            //}
-
-            var launchPadDetailsModel = GetLaunchPadDetails(location, quarter, status, financialYear);
-            return PartialView(launchPadDetailsModel);
-        }
 
         [HttpGet]
         public ActionResult UploadFile()

@@ -71,5 +71,7 @@
     <Build Include="dbo\User Defined Types\lp_detail_type.sql" />
     <Build Include="dbo\User Defined Types\lp_score_type.sql" />
     <Build Include="dbo\Stored Procedures\usp_lp_score_persist.sql" />
+    <Build Include="dbo\Stored Procedures\usp_lp_detail_get_all_by_launch_pad_code.sql" />
+    <Build Include="dbo\Stored Procedures\usp_lp_detail_get_all.sql" />
   </ItemGroup>
 </Project>
